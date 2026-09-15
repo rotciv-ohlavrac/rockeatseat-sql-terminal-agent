@@ -3,6 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "seed": "bun src/seed.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
