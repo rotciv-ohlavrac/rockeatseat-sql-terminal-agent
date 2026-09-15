@@ -1,8 +1,8 @@
 import { createWriteStream, statSync } from "node:fs";
 import { faker } from "@faker-js/faker";
+import { LOG_FILE, LOG_INTERVAL } from "./constants";
 
 type User = {
-  id: string;
   ip: string;
   username: string;
   first_name: string;
@@ -14,10 +14,8 @@ type User = {
   job_title: string;
 };
 
-type UserEntryLog = User & { timestamp: string };
+type UserEntryLog = User & { id: string; timestamp: string };
 
-const LOG_FILE = "access.log";
-const LOG_INTERVAL = 1 * 1000;
 const maxRecords = Number(process.argv[2] || Infinity);
 
 if (
@@ -43,12 +41,15 @@ function generateUser(): User {
     job_area: faker.person.jobArea(),
     company: faker.company.name(),
     job_title: faker.person.jobTitle(),
-    id: faker.string.uuid(),
   };
 }
 
 function generateLogEntry(user: User): UserEntryLog {
-  return { ...user, timestamp: faker.date.recent().toISOString() };
+  return {
+    ...user,
+    id: faker.string.uuid(),
+    timestamp: faker.date.recent().toISOString(),
+  };
 }
 
 function writeRecord(line: string) {

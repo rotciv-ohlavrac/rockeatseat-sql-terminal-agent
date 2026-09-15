@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "seed": "bun src/seed.ts"
+    "seed": "bun src/seed.ts",
+    "ingest": "bun src/ingest.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
